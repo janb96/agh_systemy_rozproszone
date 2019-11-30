@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  graph-microservice:
+    build: ./graph-microservice
+    volumes:
+      - ./graph-microservice/App:/usr/src
+    ports:
+      - 3000:3000
