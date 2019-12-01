@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const Graph = require('./model/graph.js');
+const cors = require('cors');
 
-var indexRouter = require('./routes/index');
+let indexRouter = require('./routes/index');
 
 var app = express();
+app.use(cors());
 
 //INICJALIZACJA GLOBALNEJ ZMIENNEJ - GRAPH - TO JEST DO ZMIANY I DO WCZYTANIA Z BAZY
 

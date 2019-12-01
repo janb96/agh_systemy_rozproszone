@@ -7,4 +7,5 @@ RUN npm install sequelize --save
 RUN npm install axios
 RUN npm install graph
 RUN npm install dijkstrajs
+RUN npm install cors --save
 CMD ["npm", "start"]
