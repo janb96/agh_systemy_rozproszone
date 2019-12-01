@@ -8,7 +8,7 @@
 docker-compose up
 ```
 ## Istniejace end-pointy
-#### Mikroserwis Graph (port 3000)
+#### Mikroserwis Graph (port 4000)
 ```bash
 /getGraph
 /getClosestPathCost/:v1/:v2
