@@ -8,23 +8,38 @@ class Home extends Component {
         super();
         this.state = {
             edges: [],
-            nodes: []
+            nodes: [],
+            backendData: []
         };
     }
 
     async getGraph() {
+        //Wykonujesz zapytanie na backend
         const promise = await axios.get('http://localhost:4000/getGraph');
+        //Wyciagasz dane z response od backendu
         const response = promise.data;
-        console.log(response);
+        
+        //Podbijasz stan aplikacji
+        this.setState({
+            backendData: response,
+        });
+
         return response;
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         let nodes, edges, network;
 
         nodes = new vis.DataSet();
-        console.log(this.getGraph());
+
+        // Wywolujesz getGraph (await jest zeby czekac na wynik, poczytaj sobie o async i await)
+
+        let getGraphDataResponse = await this.getGraph();
+
+        //Drukujesz sobie i sprawdzasz czy rzeczywiscie zaktualizowano state
+        console.log(this.state.backendData);
+
         nodes.add([
             { id: "1", label: "Warszawa" },
             { id: "2", label: "Kraków" },
