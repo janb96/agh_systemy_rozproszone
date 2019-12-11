@@ -6,7 +6,7 @@ services:
     volumes:
       - ./graph-microservice/App:/usr/src
     ports:
-      - 4000:3000
+      - 4000:4000
   draw-microservice:
     build: ./draw-microservice
     volumes:
