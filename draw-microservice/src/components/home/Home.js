@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import vis from 'vis-network';
 
@@ -36,17 +36,21 @@ class Home extends Component {
         // Wywolujesz getGraph (await jest zeby czekac na wynik, poczytaj sobie o async i await)
 
         let getGraphDataResponse = await this.getGraph();
-
         //Drukujesz sobie i sprawdzasz czy rzeczywiscie zaktualizowano state
         console.log(this.state.backendData);
 
-        nodes.add([
-            { id: "1", label: "Warszawa" },
-            { id: "2", label: "Kraków" },
-            { id: "3", label: "Gdańsk" },
-            { id: "4", label: "Katowice" },
-            { id: "5", label: "Poznań" }
-        ]);
+
+        function turnToArray() {
+            return Array.from(arguments);
+        } //funkcja zamieniająca przesłąne argumenty do tablicy
+
+        let arrayFromBackend = turnToArray(getGraphDataResponse); //zamiana danych z backendu do tablicy
+
+        let i = 1;
+        for (let key in getGraphDataResponse){
+            nodes.add([{id: i.toString(), label: key}]);
+            i++;
+        }
 
         edges = new vis.DataSet();
 
@@ -66,6 +70,7 @@ class Home extends Component {
 
         let options = {};
 
+
         network = new vis.Network(container, data, options);
     }
 
@@ -75,6 +80,7 @@ class Home extends Component {
                 <h1>Graph</h1>
                 <div id="mynetwork"></div>
             </div>
+
         );
     }
 }
