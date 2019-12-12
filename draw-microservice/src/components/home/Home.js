@@ -46,19 +46,18 @@ class Home extends Component {
 
         let arrayFromBackend = turnToArray(getGraphDataResponse); //zamiana danych z backendu do tablicy
 
-        let i = 1;
+
         for (let key in getGraphDataResponse){
-            nodes.add([{id: i.toString(), label: key}]);
-            i++;
+            nodes.add([{id: key, label: key}]);
         }
 
         edges = new vis.DataSet();
 
+
         edges.add([
-            { id: "1", from: "1", to: "2" },
-            { id: "2", from: "1", to: "3" },
-            { id: "3", from: "2", to: "4" },
-            { id: "4", from: "2", to: "5" }
+            { id: "a", from: "a", to: "b" },
+            { id: "b", from: "b", to: "c" },
+            { id: "c", from: "c", to: "d" },
         ]);
 
         let container = document.getElementById("mynetwork");
