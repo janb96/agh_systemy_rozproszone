@@ -37,14 +37,17 @@ class Home extends Component {
 
         let getGraphDataResponse = await this.getGraph();
         //Drukujesz sobie i sprawdzasz czy rzeczywiscie zaktualizowano state
-        console.log(this.state.backendData);
+        //console.log(this.state.backendData);
 
 
         function turnToArray() {
             return Array.from(arguments);
         } //funkcja zamieniająca przesłąne argumenty do tablicy
 
+        console.log(getGraphDataResponse);
+
         let arrayFromBackend = turnToArray(getGraphDataResponse); //zamiana danych z backendu do tablicy
+
 
         for (let key in getGraphDataResponse){
             nodes.add([{id: key, label: key}]);
@@ -52,17 +55,43 @@ class Home extends Component {
 
         edges = new vis.DataSet();
 
-        /*for(let key in getGraphDataResponse){
-            for(let key in value){
+        let i_edges = 1;
+
+        let usedElements = new Array();
+
+        for ( let element in getGraphDataResponse) {
+            let index = element.toString();
+            let subArray = getGraphDataResponse[index];
+            let miniArray = [];
+            for ( let e in subArray) {
+                let e_index = e.toString();
+                let weight = subArray[e_index];
+
+                console.log(weight);
+
+                miniArray.push(e_index);
+                usedElements[index] = miniArray;
+
+                let flag = true;
+
+                if(usedElements[e_index]) {
+                    if(usedElements[e_index].includes(index)){
+                        flag = false;
+                    }
+                } else {
+                    flag = true
+                }
+
+                if(flag) {
+                    edges.add([{ id: i_edges.toString(), from: index, to: e_index, value: weight}]);
+                    i_edges++;
+                }
 
             }
-        }*/
 
-        edges.add([
-            { id: "a", from: "a", to: "b" },
-            { id: "b", from: "b", to: "c" },
-            { id: "c", from: "c", to: "d" },
-        ]);
+        }
+
+        console.log(usedElements);
 
         let container = document.getElementById("mynetwork");
 
