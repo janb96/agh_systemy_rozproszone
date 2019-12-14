@@ -83,7 +83,7 @@ class Home extends Component {
                 }
 
                 if(flag) {
-                    edges.add([{ id: i_edges.toString(), from: index, to: e_index, value: weight}]);
+                    edges.add([{ id: i_edges.toString(), from: index, to: e_index, value: weight, label: weight.toString(), font: { align: "middle" }}]);
                     i_edges++;
                 }
 
