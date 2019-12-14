@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+let edges = require('./../model/graphDatabase.js');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 router.get('/getClosestPath/:v1/:v2', function(req, res, next) {
 
@@ -38,11 +41,20 @@ router.get('/add/:v1/:v2/:weight', function(req, res, next) {
 	const v2 = req.params.v2;
 	const weight = parseInt(req.params.weight);
 
+	const edge = {
+		start: v1,
+	  	end: v2,
+	  	weight: weight
+	};
+
+	edges.create(edge);
+
 	console.log(v1);
 	console.log(v2);
 	console.log(weight);
 
 	let status = g.add(v1, v2, weight);
+
 
 	console.log(g.getAll());
 

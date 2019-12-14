@@ -17,14 +17,27 @@ app.use(cors());
 //INICJALIZACJA GLOBALNEJ ZMIENNEJ - GRAPH - TO JEST DO ZMIANY I DO WCZYTANIA Z BAZY
 
 global.g = new Graph();
-// let testujemy = edges.findAll().then(
-//     result => console.log(result[0].dataValues)
-// );
-// console.log(testujemy);
 
-g.add('a', 'b', 10);
-g.add('b', 'c', 5);
-g.add('c', 'd', 4);
+async function getGraphFromDatabase() {
+  let testujemy = await edges.findAll();
+  return testujemy;
+}
+
+async function loadGraph() {
+  let dbGraph = await getGraphFromDatabase();
+  for (element in dbGraph) {
+    g.add(dbGraph[element].dataValues.start, 
+      dbGraph[element].dataValues.end, 
+      dbGraph[element].dataValues.weight);
+  }
+}
+
+loadGraph();
+
+
+// g.add('a', 'b', 10);
+// g.add('b', 'c', 5);
+// g.add('c', 'd', 4);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,11 +68,11 @@ app.use(function(err, req, res, next) {
 });
 
 const edge = {
-  start: "f",
-  end: "g",
-  weight: 23
+  start: "Warszawa",
+  end: "Białystok",
+  weight: 200
 };
 
-edges.create(edge);
+// edges.create(edge);
 
 module.exports = app;
