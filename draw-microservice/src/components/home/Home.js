@@ -46,13 +46,17 @@ class Home extends Component {
 
         let arrayFromBackend = turnToArray(getGraphDataResponse); //zamiana danych z backendu do tablicy
 
-
         for (let key in getGraphDataResponse){
             nodes.add([{id: key, label: key}]);
         }
 
         edges = new vis.DataSet();
 
+        /*for(let key in getGraphDataResponse){
+            for(let key in value){
+
+            }
+        }*/
 
         edges.add([
             { id: "a", from: "a", to: "b" },

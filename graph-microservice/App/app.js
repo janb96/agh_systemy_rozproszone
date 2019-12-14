@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const Graph = require('./model/graph.js');
 const cors = require('cors');
+let edges = require('./model/graphDatabase.js');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 let indexRouter = require('./routes/index');
 
@@ -14,6 +17,10 @@ app.use(cors());
 //INICJALIZACJA GLOBALNEJ ZMIENNEJ - GRAPH - TO JEST DO ZMIANY I DO WCZYTANIA Z BAZY
 
 global.g = new Graph();
+// let testujemy = edges.findAll().then(
+//     result => console.log(result[0].dataValues)
+// );
+// console.log(testujemy);
 
 g.add('a', 'b', 10);
 g.add('b', 'c', 5);
@@ -46,5 +53,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const edge = {
+  start: "f",
+  end: "g",
+  weight: 23
+};
+
+edges.create(edge);
 
 module.exports = app;
