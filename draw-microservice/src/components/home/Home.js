@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import vis from 'vis-network';
+import CarsSender from './../cars/CarsSender';
+import ShowCars from './../cars/ShowCars';
+import FindCar from './../cars/FindCar';
+import Graph from './../graph/Graph';
 
 class Home extends Component {
 
@@ -108,10 +112,24 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div id="mynetwork"></div>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-12">
+                        <div id="mynetwork"></div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-4">
+                        <CarsSender/>
+                    </div>
+                    <div className="col-4">
+                        <FindCar/>
+                    </div>
+                    <div className="col-4">
+                        <ShowCars/>
+                    </div>
+                </div>
             </div>
-
         );
     }
 }

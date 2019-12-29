@@ -27,9 +27,33 @@ router.get('/getCars', async function(req, res, next) {
   	res.send(allCars);
 });
 
-router.get('/findClosestCar/:v1', async function(req, res, next) {
+router.get('/changeCarLocation/:cName/:newLocation', async function(req, res, next) {
+
+	const newLocation = req.params.newLocation;
+	const cName = req.params.cName;
+
+	console.log(newLocation);
+	console.log(cName);
+
+	let response = await cars.update(
+	    { 
+	    	carPosition: newLocation 
+	    },
+	    { where: 
+	    	{ 
+	    		carName: cName 
+	    	} 
+	    }
+	);
+
+  	res.send(response);
+});
+
+router.get('/findClosestCar/:v2', async function(req, res, next) {
 
 	let allCars = await cars.findAll();
+
+	const v2 = req.params.v2;
 
 	let costs = [];
 
@@ -37,7 +61,7 @@ router.get('/findClosestCar/:v1', async function(req, res, next) {
 
 		allCars.forEach( async(params) => {
 			let carPosition = params.carPosition;
-			let url = "http://localhost:4000/getClosestPathCost/" + carPosition + "/Warszawa";
+			let url = "http://localhost:4000/getClosestPathCost/" + carPosition + "/" + v2;
 			url = encodeURI(url);
 			let pathCost = await axios.get(url);
 			const cost = {
