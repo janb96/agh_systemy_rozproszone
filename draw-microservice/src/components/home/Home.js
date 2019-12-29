@@ -109,7 +109,6 @@ class Home extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Graph</h1>
                 <div id="mynetwork"></div>
             </div>
 

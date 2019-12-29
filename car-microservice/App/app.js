@@ -3,9 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const Graph = require('./model/graph.js');
 const cors = require('cors');
-let edges = require('./model/graphDatabase.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -14,25 +12,6 @@ let indexRouter = require('./routes/index');
 var app = express();
 app.use(cors());
 
-//INICJALIZACJA GLOBALNEJ ZMIENNEJ - GRAPH - TO JEST DO ZMIANY I DO WCZYTANIA Z BAZY
-
-global.g = new Graph();
-
-async function getGraphFromDatabase() {
-  let testujemy = await edges.findAll();
-  return testujemy;
-}
-
-async function loadGraph() {
-  let dbGraph = await getGraphFromDatabase();
-  for (element in dbGraph) {
-    g.add(dbGraph[element].dataValues.start, 
-      dbGraph[element].dataValues.end, 
-      dbGraph[element].dataValues.weight);
-  }
-}
-
-loadGraph();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
