@@ -30,7 +30,10 @@ class CarsSender extends Component {
         let url = "http://localhost:5000/changeCarLocation/" + this.state.carName + "/" + this.state.carPosition;
         url = encodeURI(url);
         const promise = await axios.get(url);
-        swal("Wysłano ekipę: " + this.state.carName + " do: " + this.state.carPosition);   
+        swal("Wysłano ekipę: " + this.state.carName + " do: " + this.state.carPosition);
+        setTimeout(function(){
+           window.location.reload(1);
+        }, 2000);
     }
 
     async getPossibleLocations() {

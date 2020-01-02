@@ -1,23 +1,14 @@
 var express = require('express');
 var router = express.Router();
 let cars = require('./../model/car.js');
+let addCar = require('./addCar');
+let changeCarLocation = require('./changeCarLocation');
 const Sequelize = require('sequelize');
 const axios = require('axios')
-const Op = Sequelize.Op;
 
 router.get('/addCar/:carName/:carPosition', async function(req, res, next) {
-
-	const carPosition = req.params.carPosition;
-	const carName = req.params.carName;
-
-	const car = {
-		carPosition: carPosition,
-		carName: carName
-	};
-
-	let status = await cars.create(car);
-
-  	res.send(status);
+	let response = await addCar(req.params.carName, req.params.carPosition);
+  	res.send(response.toString());
 });
 
 router.get('/getCars', async function(req, res, next) {
@@ -29,22 +20,7 @@ router.get('/getCars', async function(req, res, next) {
 
 router.get('/changeCarLocation/:cName/:newLocation', async function(req, res, next) {
 
-	const newLocation = req.params.newLocation;
-	const cName = req.params.cName;
-
-	console.log(newLocation);
-	console.log(cName);
-
-	let response = await cars.update(
-	    { 
-	    	carPosition: newLocation 
-	    },
-	    { where: 
-	    	{ 
-	    		carName: cName 
-	    	} 
-	    }
-	);
+	let response = await changeCarLocation(req.params.cName, req.params.newLocation);
 
   	res.send(response);
 });
