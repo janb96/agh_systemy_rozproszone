@@ -61,7 +61,7 @@ router.get('/findClosestCar/:v2', async function(req, res, next) {
 
 		allCars.forEach( async(params) => {
 			let carPosition = params.carPosition;
-			let url = "http://localhost:4000/getClosestPathCost/" + carPosition + "/" + v2;
+			let url = "http://docker-desktop:4000/getClosestPathCost/" + carPosition + "/" + v2;
 			url = encodeURI(url);
 			let pathCost = await axios.get(url);
 			const cost = {

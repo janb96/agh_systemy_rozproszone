@@ -30,10 +30,7 @@ class CarsSender extends Component {
         let url = "http://localhost:5000/changeCarLocation/" + this.state.carName + "/" + this.state.carPosition;
         url = encodeURI(url);
         const promise = await axios.get(url);
-        promise.then(
-            swal("Wysłano ekipę: " + this.state.carName + " do: " + this.state.carPosition)
-        );
-        
+        swal("Wysłano ekipę: " + this.state.carName + " do: " + this.state.carPosition);   
     }
 
     async getPossibleLocations() {
@@ -99,7 +96,7 @@ class CarsSender extends Component {
                     <select className="form-control" value={this.state.carPosition} onChange={this.handleCarPositionChange}>
                         {this.state.possibleLocations}
                     </select>
-                    <button type="submit" className="btn btn-success btn-lg">
+                    <button onClick={this.handleSubmit} type="button" className="btn btn-success btn-lg">
                         Wyślij pojazd
                     </button>
                 </form>

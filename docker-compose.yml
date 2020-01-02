@@ -2,14 +2,33 @@ version: '3'
 
 services:
   graph-microservice:
-    build: ./graph-microservice
-    volumes:
-      - ./graph-microservice/App:/usr/src
+    image: graph-microservice
+    # volumes:
+    #   - ./graph-microservice/App:/usr/src
+    deploy:
+      replicas: 2
     ports:
       - 4000:4000
   draw-microservice:
-    build: ./draw-microservice
-    volumes:
-      - ./draw-microservice:/usr/src
+    image: draw-microservice
+    # volumes:
+    #   - ./draw-microservice:/usr/src
+    deploy:
+      replicas: 3
     ports:
       - 3000:3000
+  car-microservice:
+    image: car-microservice
+    deploy:
+      replicas: 2
+    ports:
+      - 5000:5000
+  visualizer:
+    image: dockersamples/visualizer
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    ports:
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
